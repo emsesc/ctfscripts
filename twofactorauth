@@ -1,0 +1,16 @@
+#!/bin/sh
+$(curl -X POST https://ccc-wh05.allyourbases.co/get-code?username="USER-48193"|grep -oP "\w*[A-Z]+\w*" > words.txt)
+#get strings with capital letters
+
+for word in $(cat words.txt); do
+  ((i+=1))
+  if [[ $i == 8 ]]; then
+    code=$word
+    printf "'\n'[+] The access code: '%s'\n" "$code";
+    
+    answer=$(curl -X POST https://ccc-wh05.allyourbases.co/verify-login --data "code=$code")
+    #send with header
+    printf "[+] Here's your flag: '%s'\n" "$answer";
+    exit
+  fi
+done
