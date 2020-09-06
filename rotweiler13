@@ -1,0 +1,12 @@
+#!/bin/sh
+rot13=$(curl https://ccc-wh04.allyourbases.co/words.php --cookie "PHPSESSID=23f716fb492616411ec6d68446d47f23")
+#get correct word (you have to use the cookie)
+printf "[+] ROT13 encoded: '%s'\n" "$rot13";
+decoded=$(echo "$rot13" | tr '[A-Za-z]' '[N-ZA-Mn-za-m]')
+printf "[+] ROT13 decoded: '%s'\n" "$decoded";
+#decode
+
+answer=$(curl -X POST https://ccc-wh04.allyourbases.co/authenticate.php/ --header "Content-type:application/x-www-form-urlencoded" --data "decoded=$decoded" --cookie "PHPSESSID=23f716fb492616411ec6d68446d47f23")
+#send with header
+
+printf "[+] Here's your flag: '%s'\n" "$answer";
